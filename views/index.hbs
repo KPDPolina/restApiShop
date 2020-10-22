@@ -1,19 +1,23 @@
 <h2>Products</h2>
 
 {{#if products.length}}
-<p>{{products.length}}</p>
 <ul>
     {{#each products}}
     <li>
         <label>
             {{#if inTheBasket}}
             <input type="checkbox" checked>
-            <span>{{title}}</span>
+            <span>{{_id}}</span>
+            <span>{{name}}</span>
+            <span>{{price}}</span>
+            <span>{{supplier}}</span>
             {{else}}
             <input type="checkbox">
-            <span>{{title}}</span>
+            <span>{{_id}}</span>
+            <span>{{name}}</span>
+            <span>{{price}}</span>
+            <span>{{supplier}}</span>
             {{/if}}
-
             <button class="bin btn-small">Save</button>
         </label>
     </li>

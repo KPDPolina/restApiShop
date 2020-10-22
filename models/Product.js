@@ -1,21 +1,21 @@
 const { Schema, model } = require('mongoose')
 
 const poductShema = new Schema({
-  title: {
+  name: {
     type: String,
     required: true
   },
-//   price: {
-//     type: Number,
-//     required: true
-//   },
-//   category: {
-//     type: String,
-//     required: true
-//   },
-//   supplier: {
-//     type: String,
-//   },
+  price: {
+    type: Number,
+    required: true
+  },
+  category: {
+    type: String,
+    required: true
+  },
+  supplier: {
+    type: String,
+  },
   inTheBasket: {
     type: Boolean,
     default: false
