@@ -1,0 +1,34 @@
+{{!-- Форма для урл /create 
+        
+        У каждого интпута есть атрибут name который передаем в product в роутере .post
+
+ --}}
+
+
+<form action="/create" method="POST">
+
+    <h2>Create product</h2>
+
+    <div class="input-field">
+        <input type="text" name="title">
+        <label>name</label>
+    </div>
+
+    {{!-- <div>
+        <input type="number" name="priceP" min="1">
+        <label>price</label>
+    </div>
+
+    <div>
+        <input type="text" name="categoryP">
+        <label>category</label>
+    </div>
+
+    <div>
+        <input type="text" name="supplierP">
+        <label>supplier</label>
+    </div> --}}
+
+    <button type="submit" class="btn">Create</button>
+
+</form>

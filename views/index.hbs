@@ -1,1 +1,24 @@
-<h2>Index page</h2>
+<h2>Products</h2>
+
+{{#if products.length}}
+<p>{{products.length}}</p>
+<ul>
+    {{#each products}}
+    <li>
+        <label>
+            {{#if inTheBasket}}
+            <input type="checkbox" checked>
+            <span>{{title}}</span>
+            {{else}}
+            <input type="checkbox">
+            <span>{{title}}</span>
+            {{/if}}
+
+            <button class="bin btn-small">Save</button>
+        </label>
+    </li>
+    {{/each}}
+</ul>
+{{else}}
+<p>No products!</p>
+{{/if}}

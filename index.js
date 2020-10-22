@@ -2,8 +2,9 @@ require('dotenv').config();
 const express = require("express")
 const mongoose = require("mongoose")
 const exphbs = require("express-handlebars")
+const productRoutes = require('./routes/products')
 
-const PORT = process.env.PORT || 3000
+const PORT = 3000 //process.env.PORT || 3000
 const DB_CONN = process.env.DB_CONN
 
 const app = express();
@@ -13,9 +14,13 @@ const hbs = exphbs.create({
 })
 
 app.engine('hbs', hbs.engine)
-app.set('view endine', 'hbs')
+app.set('view engine', 'hbs')
 app.set('views', 'views')
 
+app.use(express.urlencoded({ extended: true }))
+// app.use(express.static(path.join(__dirname, 'public')))
+
+app.use(productRoutes)
 
 async function start() {
     try{
@@ -25,7 +30,6 @@ async function start() {
         })
         app.listen(PORT, ()=>{
             console.log("Server started...");
-            console.log(process.env);
         })
     }catch (e) {
         console.log(e)
