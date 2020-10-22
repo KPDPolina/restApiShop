@@ -1,18 +1,20 @@
 
-<h2>Delete products</h2>
+<h2>Update product's list</h2>
 
 {{#if products.length}}
 <ul>
     {{#each products}}
     <li>
-        <form action="/delete" method="POST">
+        <form action="/updateList" method="POST">
             <label>
                 <span>{{name}}</span>
                 <span>{{price}}</span>
+                <span>{{category}}</span>
                 <span>{{supplier}}</span>
 
                 <input type="hidden" value="{{_id}}" name="id">
-                <button class="bin btn-small" type="submit">Delete</button>
+                
+                <button class="bin btn-small" type="submit">Update</button>
             </label>
         </form>
     </li>

@@ -21,6 +21,12 @@
       <li><a href="/delete">Delete</a></li>
       {{/if}}
 
+      {{#if isUpdate}}
+      <li class="active"><a href="/updateList">Update</a></li>
+      {{else}}
+      <li><a href="/updateList">Update</a></li>
+      {{/if}}
+
     </ul>
   </div>
 </nav>
