@@ -15,6 +15,12 @@
       <li><a href="/create">Create</a></li>
       {{/if}}
 
+      {{#if isDelete}}
+      <li class="active"><a href="/delete">Delete</a></li>
+      {{else}}
+      <li><a href="/delete">Delete</a></li>
+      {{/if}}
+
     </ul>
   </div>
 </nav>

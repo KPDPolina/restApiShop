@@ -1,0 +1,24 @@
+<h2>Delete products</h2>
+
+{{#if products.length}}
+<ul>
+    {{#each products}}
+    <li>
+
+
+        <form action="/delete" method="POST">
+            <label>
+                <span>{{name}}</span>
+                <span>{{price}}</span>
+                <span>{{supplier}}</span>
+
+                <input type="hidden" value="{{_id}}" name="id">
+                <button class="bin btn-small" type="submit">Delete</button>
+            </label>
+        </form>
+    </li>
+    {{/each}}
+</ul>
+{{else}}
+<p>No products!</p>
+{{/if}}

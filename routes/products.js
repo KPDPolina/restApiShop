@@ -3,25 +3,53 @@ const Product = require('../models/Product')  // импортируем сюда
 const router = Router()
 
 router.get('/', async (req, res) => {
-    // const products = await Product.find({})      НЕ РАБОЧЕЕ!
-    const products = await Product.find({}).lean()  //выводим все объекты модели Product
+    let products = await Product.find({}).lean()  //выводим все объекты модели Product
 
     res.render('index',{
         title: "Products",
         isIndex: true,
         products
     })
-  })
+})
 
-  router.get('/create', (req, res) => {
+router.get('/delete', async (req, res) => {
+  let products = await Product.find({}).lean()  //выводим все объекты модели Product
+
+  res.render('delete',{
+      title: "Delete products",
+      isDelete: true,
+      products
+  })
+})
+
+router.post('/delete', async (req, res) =>{
+  await Product.findByIdAndDelete(req.body.id, function (err, docs) { 
+    if (err){ 
+        console.log(err) 
+    } 
+    else{
+        console.log("Deleted : ", docs); 
+    } 
+})
+
+  let products = await Product.find({}).lean()
+
+  res.render('delete',{
+    title: "Delete products",
+    isDelete: true,
+    products
+})
+})
+
+router.get('/create', (req, res) => {
     res.render('create',{
         title: "Create product",
         isCreate: true
     })
-  }) 
+}) 
 
-  router.post('/create', async (req, res) => {
-    const product = new Product({               //создаем объект с названием product   модели Product
+router.post('/create', async (req, res) => {
+    let product = new Product({               //создаем объект с названием product   модели Product
 
       // передаем свойствам модели Product введеные в инпутах формы данные
         name: req.body.name,            
@@ -31,7 +59,8 @@ router.get('/', async (req, res) => {
     })
     await product.save()              // ждем сохранения нового объекта
     res.redirect('/')
-  })
+})
+
 
 
   module.exports = router
