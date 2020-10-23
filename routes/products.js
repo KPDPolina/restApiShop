@@ -1,6 +1,7 @@
 const { Router } = require('express')
 const Product = require('../models/Product')  // импортируем сюда модель Product
 const router = Router()
+const eee = require('eslint')
 
 //____________________________ ГЛАВНАЯ _______________________________________________
 router.get('/', async (req, res) => {
@@ -9,8 +10,64 @@ router.get('/', async (req, res) => {
         title: "Products",
         isIndex: true,
         products
-    })
+    }) 
 })
+
+//_______________________________ ДЕЙСТВИЕ - В КОРЗИНУ ИЛИ ИЗ КОРЗИНЫ ____________________________________
+router.post('/', async (req, res) => {
+  let product = await Product.findById(req.body.id, function (err, docs) { 
+    if (err){ 
+        console.log(err) 
+    } 
+    else{  
+        console.log("Update inTheBasket : ", docs.inTheBasket);
+    }
+  })
+  let newProduct = Product.findByIdAndUpdate(req.body.id, {inTheBasket: !product.inTheBasket}, function (err, docs) { 
+    if (err){ 
+        console.log(err) 
+    } 
+    else{  
+        console.log("Update inTheBasket : ", docs.inTheBasket);
+    }
+  });
+  (await newProduct).save()
+  const products = Product.find({}).lean()
+  res.redirect('/')
+})
+
+//______________________________ СТРАНИЦА КОРЗИНА _____________________________________
+router.get('/basket', async (req, res) => {
+  const products = await Product.find({ inTheBasket: true }, function (err, docs) { 
+    if (err){ 
+        console.log(err); 
+    } 
+    else{ 
+        console.log("find : ", docs);
+    } 
+}).lean()
+  res.render('inTheBasket',{
+      title: "Basket",
+      isBasket: true,
+      products
+  }) 
+})
+
+//_______________________________ ДЕЙСТВИЕ - ИЗ КОРЗИНЫ ____________________________________
+router.post('/basket', async (req, res) => {
+  let product = await Product.findByIdAndUpdate(req.body.id, { inTheBasket: false }, function (err, docs) { 
+    if (err){ 
+        console.log(err) 
+    } 
+    else{ 
+        console.log("Update outTheBasket : ", docs);
+    }
+  })
+product.save()
+const products = Product.find({}).lean()
+res.redirect('/basket')
+})
+
 
 //________________________ СТРАНИЦА УДАЛЕНИЯ ПРОДУКТА _______________________
 router.get('/delete', async (req, res) => {
@@ -50,7 +107,7 @@ router.get('/create', (req, res) => {
 
 //________________________ ДЕЙСТВИЕ - СОЗДАНИЕ ОДНОГО ПРОДУКТА _______________________
 router.post('/create', async (req, res) => {
-  const product = new Product({               //создаем объект с названием product   модели Product
+  const product = new Product({               //создаем объект с названием product модели Product
 
     // передаем свойствам модели Product введеные в инпутах формы данные
       name: req.body.name,            
@@ -111,7 +168,7 @@ router.post('/update', async (req, res) => {
   })
 product.save()
 const products = Product.find({}).lean()
-res.redirect('/')
+res.redirect('/updateList')
 })
 
   module.exports = router
