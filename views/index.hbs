@@ -1,28 +1,29 @@
-
 <h2>Products</h2>
 <div>
-{{#if products.length}}
-<ul>
-    {{#each products}}
-    <li>
-        <label>
-            {{#if inTheBasket}}
-            <input type="checkbox" checked>
-            <span>{{name}}</span>
-            <span>{{price}}</span>
-            <span>{{supplier}}</span>
-            {{else}}
-            <input type="checkbox">
-            <span>{{name}}</span>
-            <span>{{price}}</span>
-            <span>{{supplier}}</span>
-            {{/if}}
-            <button class="bin btn-small">Save</button>
-        </label>
-    </li>
-    {{/each}}
-</ul>
-{{else}}
-<p>No products!</p>
-{{/if}}    
+    {{#if products.length}}
+    <ul>
+        {{#each products}}
+        <li>
+            <label>
+                {{#if inTheBasket}}
+                <input type="checkbox" checked>
+                <span>name: {{name}} </span>
+                <span>price: {{price}} </span>
+                <span>category: {{category}} </span>
+                <span>supplier: {{supplier}} </span>
+                {{else}}
+                <input type="checkbox">
+                <span>name: {{name}} </span>
+                <span>price: {{price}} </span>
+                <span>category: {{category}} </span>
+                <span>supplier: {{supplier}} </span>
+                {{/if}}
+                <button class="bin btn-small">Save</button>
+            </label>
+        </li>
+        {{/each}}
+    </ul>
+    {{else}}
+    <p>No products!</p>
+    {{/if}}
 </div>

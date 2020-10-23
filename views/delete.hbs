@@ -1,4 +1,3 @@
-
 <h2>Delete products</h2>
 
 {{#if products.length}}
@@ -7,10 +6,10 @@
     <li>
         <form action="/delete" method="POST">
             <label>
-                <span>{{name}}</span>
-                <span>{{price}}</span>
-                <span>{{supplier}}</span>
-
+                <span>name: {{name}} </span>
+                <span>price: {{price}} </span>
+                <span>category: {{category}} </span>
+                <span>supplier: {{supplier}} </span>
                 <input type="hidden" value="{{_id}}" name="id">
                 <button class="bin btn-small" type="submit">Delete</button>
             </label>

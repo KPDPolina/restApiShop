@@ -1,27 +1,16 @@
 <h2>Update product</h2>
 
-{{#if product}}
-<ul>
+{{#if id}}
+<form action="/update" method="POST">
+    <input type="hidden" value="{{id}}" name="id">
 
-    <form action="/update" method="POST">
-        <label>
-            {{#each product}}
+    <input type="text" value="{{name}}" name="name"><label>name</label>
+    <input type="number" value="{{price}}" name="price"><label>price</label>
+    <input type="text" value="{{category}}" name="category"><label>category</label>
+    <input type="text" value="{{supplier}}" name="supplier"><label>supplier</label>
 
-            <span>{{product}}</span>
-            <input type="hidden" value="{{_id}}" name="id">
-            <input type="text" value="{{name}}" name="name">
-            <input type="number" value="{{price}}" name="price" min="1">
-            <input type="text" value="{{category}}" name="category">
-            <input type="text" value="{{supplier}}" name="supplier">
-            <button class="bin btn-small" type="submit">Save</button>
-
-            {{/each}}
-
-        </label>
-    </form>
-
-</ul>
-
+    <button class="bin btn-small" type="submit">Save</button>
+</form>
 {{else}}
 <p>No products!</p>
 {{/if}}
