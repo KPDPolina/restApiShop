@@ -116,7 +116,7 @@ router.post('/create', async (req, res) => {
       supplier: req.body.supplier,
   })
   await product.save()              // ждем сохранения нового объекта
-  res.redirect('/')
+  res.redirect('/create')
 })
 
 //__________________________ СТРАНИЦА СПИСОК ПРОДУКТОВ (ДЛЯ ИЗМЕНЕНИЯ) ________________________

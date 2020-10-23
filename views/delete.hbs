@@ -3,18 +3,20 @@
 {{#if products.length}}
 <ul>
     {{#each products}}
-    <li>
+    <div class="row">
         <form action="/delete" method="POST">
-            <label>
+            <div class="divider"></div>
+            <div class="section">
                 <span>name: {{name}} </span>
                 <span>price: {{price}} </span>
                 <span>category: {{category}} </span>
                 <span>supplier: {{supplier}} </span>
+
                 <input type="hidden" value="{{_id}}" name="id">
-                <button class="bin btn-small" type="submit">Delete</button>
-            </label>
+            </div>
+            <button class="bin btn-small" type="submit">Delete</button>
         </form>
-    </li>
+    </div>
     {{/each}}
 </ul>
 {{else}}

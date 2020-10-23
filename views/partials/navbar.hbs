@@ -1,4 +1,4 @@
-<nav class="green darken-4">
+<nav class="teal accent-4">
   <div class="nav-wrapper">
     <a href="/" class="brand-logo">Shop</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -7,6 +7,12 @@
       <li class="active"><a href="/">Products</a></li>
       {{else}}
       <li><a href="/">Products</a></li>
+      {{/if}}
+
+      {{#if isBasket}}
+      <li class="active"><a href="/basket">Basket</a></li>
+      {{else}}
+      <li><a href="/basket">Basket</a></li>
       {{/if}}
 
       {{#if isCreate}}
@@ -25,12 +31,6 @@
       <li class="active"><a href="/updateList">Update</a></li>
       {{else}}
       <li><a href="/updateList">Update</a></li>
-      {{/if}}
-
-      {{#if isBasket}}
-      <li class="active"><a href="/basket">Basket</a></li>
-      {{else}}
-      <li><a href="/basket">Basket</a></li>
       {{/if}}
 
     </ul>

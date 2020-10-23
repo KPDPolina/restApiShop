@@ -1,23 +1,26 @@
 <h2>Products</h2>
 <div>
     {{#if products.length}}
-    <ul>
-        {{#each products}}
-        <li>
-            <form action="/" method="POST">
+    {{#each products}}
+    <div class="row">
+        <form action="/" method="POST">
+            <div class="divider"></div>
+            <div class="section">
                 <span>name: {{name}} </span>
                 <span>price: {{price}} </span>
                 <span>category: {{category}} </span>
                 <span>supplier: {{supplier}} </span>
-                <span>inTheBasket: {{inTheBasket}} </span>
-
-                <input type="hidden" value="{{_id}}" name="id">
-                {{!-- <input type="hidden" value={{inTheBasket}} name="inTheBasket"> --}}
-                <button type="submit" class="bin btn-small">InTheBasket</button>
-            </form>
-        </li>
-        {{/each}}
-    </ul>
+            </div>
+            <input type="hidden" value="{{_id}}" name="id">
+            {{!-- <input type="hidden" value={{inTheBasket}} name="inTheBasket"> --}}
+            {{#if inTheBasket}}
+            <button type="submit" class="bin btn-small teal accent-4">Remove</button>
+            {{else}}
+            <button type="submit" class="bin btn-small orange accent-4">Put</button>
+            {{/if}}
+        </form>
+    </div>
+    {{/each}}
     {{else}}
     <p>No products!</p>
     {{/if}}

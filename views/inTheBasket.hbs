@@ -3,20 +3,21 @@
     {{#if products.length}}
     <ul>
         {{#each products}}
-        <li>
+        <div class="row">
             <span>{{products}}</span>
             <form action="/basket" method="POST">
-                <span>name: {{name}} </span>
-                <span>price: {{price}} </span>
-                <span>category: {{category}} </span>
-                <span>supplier: {{supplier}} </span>
-                <span>supplier: {{inTheBasket}} </span>
+                <div class="divider"></div>
+                <div class="section">
+                    <span>name: {{name}} </span>
+                    <span>price: {{price}} </span>
+                    <span>category: {{category}} </span>
+                    <span>supplier: {{supplier}} </span>
 
-                <input type="hidden" value="{{_id}}" name="id">
-
-                <button type="submit" class="bin btn-small">outTheBasket</button>
+                    <input type="hidden" value="{{_id}}" name="id">
+                </div>
+                <button type="submit" class="bin btn-small">Remove</button>
             </form>
-        </li>
+        </div>
         {{/each}}
     </ul>
     {{else}}
