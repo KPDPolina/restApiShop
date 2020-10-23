@@ -3,15 +3,12 @@
         У каждого интпута есть атрибут name который передаем в product в роутере .post
 
  --}}
-
+<h3>Create product</h3>
 <form action="/create" method="POST">
-    <h2>Create product</h2>
-
     <div>
         <input type="text" name="name">
         <label>name</label>
     </div>
-
     <div>
         <input type="number" name="price" min="1">
         <label>price</label>
@@ -22,10 +19,20 @@
         <label>category</label>
     </div>
 
+    {{!-- НЕ РАБОТАЕТ?!
+    
+    <select name="category">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+    </select> --}}
+
     <div>
         <input type="text" name="supplier">
         <label>supplier</label>
     </div>
 
     <button type="submit" class="btn">Create</button>
+
 </form>

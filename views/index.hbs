@@ -1,8 +1,21 @@
-<h2>Products</h2>
+<h3>Products</h3>
 <div>
     {{#if products.length}}
+    <div class="row">
+        {{#each products}}
+        <div class="row">
+            <form action="/filtr" method="POST">
+                <span>category: {{category}} </span>
+                <input type="hidden" value="{{category}}" name="category">
+                <button type="submit" class="bin btn-small teal accent-1">filtr</button>
+            </form>
+        </div>
+        {{/each}}
+    </div>
+
     {{#each products}}
     <div class="row">
+
         <form action="/" method="POST">
             <div class="divider"></div>
             <div class="section">
@@ -12,7 +25,6 @@
                 <span>supplier: {{supplier}} </span>
             </div>
             <input type="hidden" value="{{_id}}" name="id">
-            {{!-- <input type="hidden" value={{inTheBasket}} name="inTheBasket"> --}}
             {{#if inTheBasket}}
             <button type="submit" class="bin btn-small teal accent-4">Remove</button>
             {{else}}

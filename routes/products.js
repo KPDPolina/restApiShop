@@ -13,6 +13,23 @@ router.get('/', async (req, res) => {
     }) 
 })
 
+router.post('/filtr', async (req, res) => {
+  const products = await Product.find({ category: req.body.category}, function (err, docs) { 
+    if (err){ 
+        console.log(err); 
+    } 
+    else{ 
+        console.log("First function call : ", docs); 
+    } 
+}).lean()  //выводим все объекты модели Product
+  res.render('index',{
+      title: "Products",
+      isIndex: true,
+      products
+  }) 
+})
+
+
 //_______________________________ ДЕЙСТВИЕ - В КОРЗИНУ ИЛИ ИЗ КОРЗИНЫ ____________________________________
 router.post('/', async (req, res) => {
   let product = await Product.findById(req.body.id, function (err, docs) { 
