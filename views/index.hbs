@@ -1,28 +1,35 @@
 <h3>Products</h3>
 <div>
+
     {{#if products.length}}
-    <div class="row">
+    <span style="font-weight:800; font-size:large;">Category</span>
+    <div class="row section">
         {{#each products}}
         <div class="row">
-            <form action="/filtr" method="POST">
-                <span>category: {{category}} </span>
-                <input type="hidden" value="{{category}}" name="category">
-                <button type="submit" class="bin btn-small teal accent-1">filtr</button>
-            </form>
+            <div class="col s3 ">
+                <form action="/filtr" method="POST">
+                    <span> {{category}} </span>
+                    <input type="hidden" value="{{category}}" name="category">
+                    <button type="submit" class="bin btn-small teal accent-4">filtr</button>
+                </form>
+            </div>
         </div>
         {{/each}}
     </div>
 
     {{#each products}}
     <div class="row">
-
         <form action="/" method="POST">
             <div class="divider"></div>
             <div class="section">
-                <span>name: {{name}} </span>
-                <span>price: {{price}} </span>
-                <span>category: {{category}} </span>
-                <span>supplier: {{supplier}} </span>
+                <span >name: </span>
+                <span>{{name}} </span>
+                <span >price $: </span>
+                <span>{{price}} </span>
+                <span >category: </span>
+                <span>{{category}} </span>
+                <span >supplier: </span>
+                <span>{{supplier}} </span>
             </div>
             <input type="hidden" value="{{_id}}" name="id">
             {{#if inTheBasket}}
@@ -36,4 +43,5 @@
     {{else}}
     <p>No products!</p>
     {{/if}}
+
 </div>
