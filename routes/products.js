@@ -46,7 +46,7 @@ router.post("/filtr", async (req, res) => {
       if (err) {
         console.log(err);
       } else {
-        console.log("First function call : ", docs);
+        console.log("Filtr by : ", docs);
       }
     }
   ).lean(); //выводим отфильтрованые объекты модели Product
