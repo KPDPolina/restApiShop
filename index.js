@@ -4,8 +4,8 @@ const mongoose = require("mongoose")
 const exphbs = require("express-handlebars")
 const productRoutes = require('./routes/products')
 
-const PORT = 3000 //process.env.PORT || 3000
-const DB_CONN = process.env.DB_CONN
+const PORT = 3000; //process.env.PORT || 3000
+const DB_CONN = process.env.DB_CONN;
 
 const app = express();
 const hbs = exphbs.create({
@@ -13,14 +13,14 @@ const hbs = exphbs.create({
     extname: 'hbs'
 })
 
-app.engine('hbs', hbs.engine)
-app.set('view engine', 'hbs')
-app.set('views', 'views')
+app.engine('hbs', hbs.engine);
+app.set('view engine', 'hbs');
+app.set('views', 'views');
 
 app.use(express.urlencoded({ extended: true }))
 // app.use(express.static(path.join(__dirname, 'public')))
 
-app.use(productRoutes)
+app.use(productRoutes);
 
 async function start() {
     try{
