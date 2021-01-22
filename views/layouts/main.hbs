@@ -2,10 +2,46 @@
 
 <body>
     {{> navbar}}
+    <style>
+        .sidenav {
+            height: 100%;
+            /* Полная высота: удалите это, если хотите "auto" высоту */
+            width: 160px;
+            /* Установите ширину боковой панели */
+            position: fixed;
+            /* Исправлена боковая панель (оставайтесь на месте при прокрутке) */
+            z-index: 1;
+            /* Оставайтесь вверху */
+            top: 0;
+            /* Оставайтесь внизу */
+            left: 0;
+            background-color: rgba(6, 97, 70, 0.521);
+            /* Черный */
+            overflow-x: hidden;
+            /* Отключить горизонтальную прокрутку */
+            padding-top: 20px;
+        }
+
+        /* Ссылки меню навигации */
+        .sidenav a {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+        }
+
+        /* Когда вы наводите курсор мыши на навигационные ссылки, меняется их цвет */
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+    </style>
+
+    {{> sidenav}}
     <div class="container">
         {{{body}}}
     </div>
-    
+
 </body>
 
 </html>

@@ -2,9 +2,9 @@ const { Router } = require("express");
 const Product = require("../models/Product"); // импортируем сюда модель Product
 const router = Router();
 const eee = require("eslint");
-
+let last_filtr_category;
 //____________________________ ГЛАВНАЯ _______________________________________________
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   const products = await Product.find({}).lean(); //выводим все объекты модели Product
   res.render("index", {
     title: "Products",
@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 //_______________________________ ДЕЙСТВИЕ - В КОРЗИНУ ИЛИ ИЗ КОРЗИНЫ ____________________________________
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   let product = await Product.findById(req.body.id, function (err, docs) {
     if (err) {
       console.log(err);
@@ -35,11 +35,31 @@ router.post("/", async (req, res) => {
   );
   (await newProduct).save();
   const products = Product.find({}).lean();
-  res.redirect("/");
+  res.redirect(req.get("referer"));
 });
 
-//_____________________________ ФИЛЬТР _________________________________________________
-router.post("/filtr", async (req, res) => {
+//_____________________________СТРАНИЦА - ФИЛЬТР _________________________________________________
+router.get('/filtr', async (req, res) => {
+  console.log('last_filtr_category = ', last_filtr_category);
+  const products = await Product.find(
+    { category: last_filtr_category },
+    function (err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Filtr by : ", docs);
+      }
+    }
+  ).lean(); //выводим отфильтрованые объекты модели Product
+  res.render('index', {
+    title: "Products",
+    isIndex: true,
+    products,
+  });
+})
+
+//_____________________________ДЕЙСТВИЕ - ФИЛЬТР _________________________________________________
+router.post('/filtr', async (req, res) => {
   const products = await Product.find(
     { category: req.body.category },
     function (err, docs) {
@@ -50,7 +70,10 @@ router.post("/filtr", async (req, res) => {
       }
     }
   ).lean(); //выводим отфильтрованые объекты модели Product
-  res.render("index", {
+
+  last_filtr_category = req.body.category;
+
+  res.render('index', {
     title: "Products",
     isIndex: true,
     products,
@@ -58,7 +81,7 @@ router.post("/filtr", async (req, res) => {
 });
 
 //______________________________ СТРАНИЦА КОРЗИНА _____________________________________
-router.get("/basket", async (req, res) => {
+router.get('/basket', async (req, res) => {
   const products = await Product.find(
     { inTheBasket: true },
     function (err, docs) {
@@ -69,7 +92,7 @@ router.get("/basket", async (req, res) => {
       }
     }
   ).lean();
-  res.render("inTheBasket", {
+  res.render('inTheBasket', {
     title: "Basket",
     isBasket: true,
     products,
@@ -77,7 +100,7 @@ router.get("/basket", async (req, res) => {
 });
 
 //_______________________________ ДЕЙСТВИЕ - ИЗ КОРЗИНЫ ____________________________________
-router.post("/basket", async (req, res) => {
+router.post('/basket', async (req, res) => {
   let product = await Product.findByIdAndUpdate(
     req.body.id,
     { inTheBasket: false },
@@ -91,13 +114,13 @@ router.post("/basket", async (req, res) => {
   );
   product.save();
   const products = Product.find({}).lean();
-  res.redirect("/basket");
+  res.redirect('/basket');
 });
 
 //________________________ СТРАНИЦА УДАЛЕНИЯ ПРОДУКТА _______________________
-router.get("/delete", async (req, res) => {
+router.get('/delete', async (req, res) => {
   const products = await Product.find({}).lean(); //выводим все объекты модели Product
-  res.render("delete", {
+  res.render('delete', {
     title: "Delete products",
     isDelete: true,
     products,
@@ -105,7 +128,7 @@ router.get("/delete", async (req, res) => {
 });
 
 //________________________ ДЕЙСТВИЕ - УДАЛЕНИЕ ПРОДУКТА _______________________
-router.post("/delete", async (req, res) => {
+router.post('/delete', async (req, res) => {
   await Product.findByIdAndDelete(req.body.id, function (err, docs) {
     if (err) {
       console.log(err);
@@ -114,7 +137,7 @@ router.post("/delete", async (req, res) => {
     }
   });
   const products = await Product.find({}).lean();
-  res.render("delete", {
+  res.render('delete', {
     title: "Delete products",
     isDelete: true,
     products,
@@ -122,15 +145,15 @@ router.post("/delete", async (req, res) => {
 });
 
 //________________________ СТРАНИЦА СОЗДАНИЯ ОДНОГО ПРОДУКТА _______________________
-router.get("/create", (req, res) => {
-  res.render("create", {
+router.get('/create', (req, res) => {
+  res.render('create', {
     title: "Create product",
     isCreate: true,
   });
 });
 
 //________________________ ДЕЙСТВИЕ - СОЗДАНИЕ ОДНОГО ПРОДУКТА _______________________
-router.post("/create", async (req, res) => {
+router.post('/create', async (req, res) => {
   const product = new Product({
     //создаем объект с названием product модели Product
 
@@ -141,14 +164,14 @@ router.post("/create", async (req, res) => {
     supplier: req.body.supplier,
   });
   await product.save(); // ждем сохранения нового объекта
-  res.redirect("/create");
+  res.redirect('/create');
 });
 
 //__________________________ СТРАНИЦА СПИСОК ПРОДУКТОВ (ДЛЯ ИЗМЕНЕНИЯ) ________________________
-router.get("/updateList", async (req, res) => {
+router.get('/updateList', async (req, res) => {
   const products = await Product.find({}).lean();
 
-  res.render("updateList", {
+  res.render('updateList', {
     title: "Update list",
     isUpdate: true,
     products,
@@ -156,7 +179,7 @@ router.get("/updateList", async (req, res) => {
 });
 
 //_______________________ ДЕЙСТВИЕ - ВЫБОР ПРОДУКТА (ДЛЯ ИЗМЕНЕНИЯ) _____________________
-router.post("/updateList", async (req, res) => {
+router.post('/updateList', async (req, res) => {
   const product = await Product.findById(req.body.id, function (err, docs) {
     if (err) {
       console.log(err);
@@ -164,7 +187,7 @@ router.post("/updateList", async (req, res) => {
       console.log("Choose : ", docs);
     }
   });
-  res.render("update", {
+  res.render('update', {
     title: "Update product",
     isUpdate: false,
     id: product.id,
@@ -176,7 +199,7 @@ router.post("/updateList", async (req, res) => {
 });
 
 //______________________________ДЕЙСТВИЕ - ИЗМЕНЕНИЕ ПРОДУКТА ______________________
-router.post("/update", async (req, res) => {
+router.post('/update', async (req, res) => {
   let product = await Product.findByIdAndUpdate(
     req.body.id,
     {
@@ -195,7 +218,7 @@ router.post("/update", async (req, res) => {
   );
   product.save();
   const products = Product.find({}).lean();
-  res.redirect("/updateList");
+  res.redirect('/updateList');
 });
 
 module.exports = router;
